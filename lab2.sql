@@ -98,9 +98,14 @@ WHERE invoice.cust_id = customer.cust_id
 AND cust_name = 'Charles Appliance and Sport';
 
 --13.	Display the invoice number and the invoice date for each invoice that contains an Electric Range.
-
+SELECT invoice.invoice_num, invoice_date
+FROM invoice, product, line
+WHERE invoice.invoice_num = line.invoice_num
+AND line.prod_id = product.prod_id
+AND prod_desc = 'Electric Range';
 
 --14.	Display the invoice number and the invoice date for each invoice that was either placed by Charles Appliance and Sport or whose invoice contains an Electric Range.  Use a set operation to perform this query.
+
 
 --15.	Display the invoice number and the invoice date for each invoice that was placed by Charles Appliance and Sport and whose invoice contains an Electric Range.  Use a set operation to perform this query.
 
