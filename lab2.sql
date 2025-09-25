@@ -77,6 +77,11 @@ WHERE rep_id IN
     );
  
 --10.	Display the same data as in the previous question without using a subquery.
+SELECT rep.rep_id, rep_lname, rep_fname
+FROM rep, customer
+WHERE rep.rep_id = customer.rep_id
+AND cust_limit >= 10000
+GROUP BY rep.rep_id;
 
 --11.	Display the id and the name of each customer with a current order for a Blender.
 
