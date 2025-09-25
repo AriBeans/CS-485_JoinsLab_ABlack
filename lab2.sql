@@ -84,10 +84,21 @@ AND cust_limit >= 10000
 GROUP BY rep.rep_id;
 
 --11.	Display the id and the name of each customer with a current order for a Blender.
+SELECT customer.cust_id, cust_name
+FROM product, customer, line, invoice
+WHERE customer.cust_id = invoice.cust_id
+AND invoice.invoice_num = line.invoice_num
+AND line.prod_id = product.prod_id
+AND prod_desc = 'Blender';
 
 --12.	Display the invoice number and the invoice date for each customer order placed by Charles Appliance and Sport.
+SELECT invoice.invoice_num, invoice_date
+FROM invoice, customer
+WHERE invoice.cust_id = customer.cust_id
+AND cust_name = 'Charles Appliance and Sport';
 
 --13.	Display the invoice number and the invoice date for each invoice that contains an Electric Range.
+
 
 --14.	Display the invoice number and the invoice date for each invoice that was either placed by Charles Appliance and Sport or whose invoice contains an Electric Range.  Use a set operation to perform this query.
 
