@@ -171,8 +171,18 @@ AND invoice.invoice_num IN
 GROUP BY invoice.invoice_num;
 
 --17.	Display the product id, the product description, the product price, and the product type for each product whose product price is greater than the price of every part in product type SG.  Be sure to correctly choose either the ALL or the ANY operator in your query.
-
+SELECT prod_id, prod_desc, prod_price, prod_type
+FROM product
+WHERE prod_price > ALL (SELECT prod_price FROM product WHERE prod_type = 'SG');
 
 --18.	Display the same attributes as in the previous question.  However, use the other of the two operators: ALL or ANY.  This version of the SQL statement provides the answer to a question.  What is that question?  Add your answer as a comment to your list file.
+SELECT prod_id, prod_desc, prod_price, prod_type
+FROM product
+WHERE NOT (prod_price <= ANY (SELECT prod_price FROM product WHERE prod_type = 'SG'));
+-- Question: Display the product id, the product description, the product price, and the product type for each product whose product price is NOT less than or equal to the price of any part in product type SG.
+
  
 --19.	Display the id, the description, the quantity, the invoice number, and the number of units ordered for each product.  Make sure to include all products in your output.  The order number and the number of ordered units must remain blank for any product that is not contained in an invoice.  Order your display by product number.
+SELECT product.prod_id, prod_desc, prod_quantity, line.invoice_num, line_num_ordered
+FROM product LEFT OUTER JOIN line ON product.prod_id = line.prod_id
+ORDER BY product.prod_id;
