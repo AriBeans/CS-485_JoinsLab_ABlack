@@ -1,12 +1,39 @@
 --1.	Display the invoice number, the invoice date, the customer id, and the customer name for each order in the database.
+SELECT invoice_num, invoice_date, customer.cust_id, cust_name
+FROM invoice, customer
+WHERE customer.cust_id = invoice.cust_id;
+
+-- ^ This is called an EQUIJOIN (also INNER JOIN)
+SELECT invoice_num, invoice_date, customer.cust_id, cust_name
+FROM invoice INNER JOIN customer ON invoice.cust_id = customer.cust_id;
+
+-- WEIRD OUTER JOIN (not precedence from keyword RIGHT)
+SELECT invoice_num, invoice_date, customer.cust_id, cust_name
+FROM invoice RIGHT OUTER JOIN customer ON invoice.cust_id = customer.cust_id;
 
 --2.	Display the invoice number, the customer id, and the customer name for each order placed on September 12th, 2007.
+SELECT invoice_num, customer.cust_id, cust_name
+FROM invoice, customer
+WHERE customer.cust_id = invoice.cust_id
+AND invoice_date = '12-SEP-07';
 
 --3.	Display the invoice number, the invoice date, the product id, the number of units ordered, and the line price for each line in each order.
+SELECT invoice.invoice_num, invoice_date, line.prod_id, line_num_ordered, line_price	
+FROM invoice, line
+WHERE invoice.invoice_num = line.invoice_num;
 
 --4.	Display the id and the name of each customer that placed an order on September 12th, 2007, using the IN operator in your query.
+SELECT cust_id, cust_name
+FROM customer
+WHERE cust_id IN
+ (
+	SELECT cust_id
+	FROM invoice
+	WHERE invoice_date = '12-SEP-07'
+ ); 
 
 --5.	Display the id and the name of each customer that placed an order on September 12th, 2007, using the EXISTS operator in your query.
+
 
 --6.	Display the id and the name of each customer that did not place an order on September 12th, 2007.   (Be careful in performing this query.)
  
