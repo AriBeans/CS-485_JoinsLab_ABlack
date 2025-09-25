@@ -105,13 +105,73 @@ AND line.prod_id = product.prod_id
 AND prod_desc = 'Electric Range';
 
 --14.	Display the invoice number and the invoice date for each invoice that was either placed by Charles Appliance and Sport or whose invoice contains an Electric Range.  Use a set operation to perform this query.
-
+SELECT invoice.invoice_num, invoice_date
+FROM invoice, line
+WHERE cust_id IN
+(
+	SELECT cust_id
+	FROM customer
+	WHERE cust_name = 'Charles Appliance and Sport'
+)
+OR invoice.invoice_num IN 
+(
+	SELECT invoice_num
+	FROM line
+	WHERE prod_id IN
+	(
+		SELECT prod_id
+		FROM product
+		WHERE prod_desc = 'Electric Range'
+	)
+)
+GROUP BY invoice.invoice_num;
 
 --15.	Display the invoice number and the invoice date for each invoice that was placed by Charles Appliance and Sport and whose invoice contains an Electric Range.  Use a set operation to perform this query.
+SELECT invoice.invoice_num, invoice_date
+FROM invoice, line
+WHERE cust_id IN
+(
+	SELECT cust_id
+	FROM customer
+	WHERE cust_name = 'Charles Appliance and Sport'
+)
+AND invoice.invoice_num IN 
+(
+	SELECT invoice_num
+	FROM line
+	WHERE prod_id IN
+	(
+		SELECT prod_id
+		FROM product
+		WHERE prod_desc = 'Electric Range'
+	)
+)
+GROUP BY invoice.invoice_num; 
 
 --16.	Display the invoice number and the invoice date for each invoice that was placed by Charles Appliance and Sport and whose invoice does not contain an Electric Range.  Use a set operation to perform this query.
+SELECT invoice.invoice_num, invoice_date
+FROM invoice, line
+WHERE cust_id IN
+(
+	SELECT cust_id
+	FROM customer
+	WHERE cust_name = 'Charles Appliance and Sport'
+)
+AND invoice.invoice_num IN 
+(
+	SELECT invoice_num
+	FROM line
+	WHERE prod_id IN
+	(
+		SELECT prod_id
+		FROM product
+		WHERE prod_desc != 'Electric Range'
+	)
+)
+GROUP BY invoice.invoice_num;
 
 --17.	Display the product id, the product description, the product price, and the product type for each product whose product price is greater than the price of every part in product type SG.  Be sure to correctly choose either the ALL or the ANY operator in your query.
+
 
 --18.	Display the same attributes as in the previous question.  However, use the other of the two operators: ALL or ANY.  This version of the SQL statement provides the answer to a question.  What is that question?  Add your answer as a comment to your list file.
  
