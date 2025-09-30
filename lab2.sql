@@ -101,6 +101,12 @@ AND invoice.invoice_num = line.invoice_num
 AND line.prod_id = product.prod_id
 AND prod_desc = 'Blender';
 
+-- Using a quadruple JOIN function.
+
+SELECT customer.cust_id, cust_name
+FROM customer JOIN invoice ON customer.cust_id = invoice.cust_id JOIN line ON invoice.invoice_num = line.invoice_num JOIN product ON line.prod_id = product.prod_id
+WHERE prod_desc = 'Blender';
+
 --12.	Display the invoice number and the invoice date for each customer order placed by Charles Appliance and Sport.
 SELECT invoice.invoice_num, invoice_date
 FROM invoice, customer
