@@ -108,7 +108,7 @@ FROM customer JOIN invoice ON customer.cust_id = invoice.cust_id JOIN line ON in
 WHERE prod_desc = 'Blender';
 
 --12.	Display the invoice number and the invoice date for each customer order placed by Charles Appliance and Sport.
-SELECT invoice.invoice_num, invoice_date
+SELECT invoice_num, invoice_date
 FROM invoice, customer
 WHERE invoice.cust_id = customer.cust_id
 AND cust_name = 'Charles Appliance and Sport';
@@ -119,6 +119,12 @@ FROM invoice, product, line
 WHERE invoice.invoice_num = line.invoice_num
 AND line.prod_id = product.prod_id
 AND prod_desc = 'Electric Range';
+
+-- Using JOIN Functions
+
+SELECT invoice.invoice_num, invoice_date
+FROM invoice JOIN line ON invoice.invoice_num = line.invoice_num JOIN product ON line.prod_id = product.prod_id 
+WHERE prod_desc = 'Electric Range';
 
 --14.	Display the invoice number and the invoice date for each invoice that was either placed by Charles Appliance and Sport or whose invoice contains an Electric Range.  Use a set operation to perform this query.
 SELECT invoice.invoice_num, invoice_date
