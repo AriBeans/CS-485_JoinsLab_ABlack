@@ -86,6 +86,13 @@ WHERE rep.rep_id = customer.rep_id
 AND cust_limit >= 10000
 GROUP BY rep.rep_id;
 
+--Better to use DISTINCT function, because we're not aggregating anything.
+
+SELECT DISTINCT(rep.rep_id), rep_lname, rep_fname
+FROM rep, customer
+WHERE rep.rep_id = customer.rep_id
+AND cust_limit >= 10000;
+
 --11.	Display the id and the name of each customer with a current order for a Blender.
 SELECT customer.cust_id, cust_name
 FROM product, customer, line, invoice
