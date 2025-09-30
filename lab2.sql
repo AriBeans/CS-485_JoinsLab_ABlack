@@ -22,6 +22,9 @@ SELECT invoice.invoice_num, invoice_date, line.prod_id, line_num_ordered, line_p
 FROM invoice, line
 WHERE invoice.invoice_num = line.invoice_num;
 
+SELECT invoice.invoice_num, invoice_date, line.prod_id, line_num_ordered, line_price	
+FROM invoice INNER JOIN line ON invoice.invoice_num = line.invoice_num; 
+
 --4.	Display the id and the name of each customer that placed an order on September 12th, 2007, using the IN operator in your query.
 SELECT cust_id, cust_name
 FROM customer
