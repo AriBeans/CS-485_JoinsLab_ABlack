@@ -136,6 +136,28 @@ OR invoice.invoice_num IN
 )
 GROUP BY invoice.invoice_num;
 
+-- With DISTINCT()
+
+SELECT DISTINCT(invoice.invoice_num), invoice_date
+FROM invoice, line
+WHERE cust_id IN
+(
+	SELECT cust_id
+	FROM customer
+	WHERE cust_name = 'Charles Appliance and Sport'
+)
+OR invoice.invoice_num IN 
+(
+	SELECT invoice_num
+	FROM line
+	WHERE prod_id IN
+	(
+		SELECT prod_id
+		FROM product
+		WHERE prod_desc = 'Electric Range'
+	)
+);
+
 --15.	Display the invoice number and the invoice date for each invoice that was placed by Charles Appliance and Sport and whose invoice contains an Electric Range.  Use a set operation to perform this query.
 SELECT invoice.invoice_num, invoice_date
 FROM invoice, line
